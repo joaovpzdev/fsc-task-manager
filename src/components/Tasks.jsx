@@ -1,58 +1,77 @@
-import Button from "./Button"
-import AddIcon from "./assets/fonts/icons/add.svg?react"
-import TrashIcon from "./assets/fonts/icons/trash.svg?react"
-import SunIcon from "./assets/fonts/icons/sun.svg?react"
-import CloudIcon from "./assets/fonts/icons/cloud-sun.svg?react"
-import MoonIcon from "./assets/fonts/icons/moon.svg?react"
-import TasksSeparator from "./TasksSeparator"
-import TasksSeparatorTitle from "./TasksSeparatorTitle"
-
+import Button from "./Button";
+import AddIcon from "./assets/fonts/icons/add.svg?react";
+import TrashIcon from "./assets/fonts/icons/trash.svg?react";
+import SunIcon from "./assets/fonts/icons/sun.svg?react";
+import CloudIcon from "./assets/fonts/icons/cloud-sun.svg?react";
+import MoonIcon from "./assets/fonts/icons/moon.svg?react";
+import TasksSeparator from "./TasksSeparator";
+import TasksSeparatorTitle from "./TasksSeparatorTitle";
+import { useState } from "react";
+import TASKS from "./constants/tasks.js";
+import TaskItem from "./TaskItem.jsx";
 
 const Tasks = () => {
-    return <div className="w-full px-8 py-16">
-                <div className="flex w-full justify-between">
-                    <div>
-                        <span className="text-xs font-semibold text-[#00ADB5]">Minhas Tarefas</span>
-                        <h2 className="text-xl font-semibold"> Minhas Tarefas</h2>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <Button variant="secundary">
-                            <TrashIcon />
-                            Limpar Tarefas
-                        </Button>
-                        <Button variant="primary"> 
-                            <AddIcon />
-                            Adicionar Tarefa
-                        </Button>
-                    </div>
-                </div>
+  const [tasks] = useState(TASKS);
 
-                {/*Lista de tarefas */}
+  const morningTasks = tasks.filter((task) => task.time === "morning");
+  const afternoonTasks = tasks.filter((task) => task.time === "afternoon");
+  const eveningTasks = tasks.filter((task) => task.time === "evening");
 
-                <div className="rounded-xl bg-white p-6">
+  return (
+    <div className="w-full px-8 py-16">
+      <div className="flex w-full justify-between">
+        <div>
+          <span className="text-xs font-semibold text-[#00ADB5]">
+            Minhas Tarefas
+          </span>
+          <h2 className="text-xl font-semibold"> Minhas Tarefas</h2>
+        </div>
+        <div className="flex items-center gap-3">
+          <Button variant="secondary">
+            <TrashIcon />
+            Limpar Tarefas
+          </Button>
+          <Button variant="primary">
+            <AddIcon />
+            Adicionar Tarefa
+          </Button>
+        </div>
+      </div>
 
-                    <div className="space-y-3">
-                           <TasksSeparator>
-                                <SunIcon />
-                               <TasksSeparatorTitle>Manhã</TasksSeparatorTitle>
-                            </TasksSeparator>
-                    </div>
+      {/*Lista de tarefas */}
 
-                    <div className="my-6 space-y-3">
-                            <TasksSeparator>
-                                <CloudIcon />
-                               <TasksSeparatorTitle>Tarde</TasksSeparatorTitle>
-                            </TasksSeparator>
-                    </div>
+      <div className="rounded-xl bg-white p-6">
+        <div className="space-y-3">
+          <TasksSeparator>
+            <SunIcon />
+            <TasksSeparatorTitle>Manhã</TasksSeparatorTitle>
+          </TasksSeparator>
+          {morningTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </div>
 
-                    <div className="space-y-3">
-                           <TasksSeparator>
-                                <MoonIcon />
-                               <TasksSeparatorTitle>Noite</TasksSeparatorTitle>
-                            </TasksSeparator>
-                    </div>
-                </div>
-            </div>
-}
+        <div className="my-6 space-y-3">
+          <TasksSeparator>
+            <CloudIcon />
+            <TasksSeparatorTitle>Tarde</TasksSeparatorTitle>
+          </TasksSeparator>
+          {afternoonTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </div>
 
-export default Tasks
+        <div className="space-y-3">
+          <TasksSeparator>
+            <MoonIcon />
+            <TasksSeparatorTitle>Noite</TasksSeparatorTitle>
+          </TasksSeparator>
+          {eveningTasks.map((task) => (
+            <TaskItem key={task.id} task={task} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+export default Tasks;
