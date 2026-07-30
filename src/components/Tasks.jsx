@@ -4,6 +4,8 @@ import TrashIcon from "./assets/fonts/icons/trash.svg?react"
 import SunIcon from "./assets/fonts/icons/sun.svg?react"
 import CloudIcon from "./assets/fonts/icons/cloud-sun.svg?react"
 import MoonIcon from "./assets/fonts/icons/moon.svg?react"
+import TasksSeparator from "./TasksSeparator"
+import TasksSeparatorTitle from "./TasksSeparatorTitle"
 
 
 const Tasks = () => {
@@ -27,28 +29,27 @@ const Tasks = () => {
 
                 {/*Lista de tarefas */}
 
-                
                 <div className="rounded-xl bg-white p-6">
-                    {/*Tarefas da Manhã */}
+
                     <div className="space-y-3">
-                            <div className="flex gap-2 pb-1 border-solid border-b border-[#F4F4F5]">
+                           <TasksSeparator>
                                 <SunIcon />
-                                <p className="text-[#9A9C9F] text-sm">Manhã</p>
-                            </div>
+                               <TasksSeparatorTitle>Manhã</TasksSeparatorTitle>
+                            </TasksSeparator>
                     </div>
-                    {/*Tarefas da Tarde */}
+
                     <div className="my-6 space-y-3">
-                            <div className="flex gap-2 border-b pb-1 border-solid border-[#F4F4F5]">
+                            <TasksSeparator>
                                 <CloudIcon />
-                                <p className="text-[#9A9C9F] text-sm">Tarde</p>
-                            </div>
+                               <TasksSeparatorTitle>Tarde</TasksSeparatorTitle>
+                            </TasksSeparator>
                     </div>
-                    {/*Tarefas da Noite */}
+
                     <div className="space-y-3">
-                            <div className="flex gap-2 pb-1  border-solid border-b border-[#F4F4F5]">
+                           <TasksSeparator>
                                 <MoonIcon />
-                                <p className="text-[#9A9C9F] text-sm">Noite</p>
-                            </div>
+                               <TasksSeparatorTitle>Noite</TasksSeparatorTitle>
+                            </TasksSeparator>
                     </div>
                 </div>
             </div>
