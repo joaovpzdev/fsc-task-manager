@@ -20,7 +20,7 @@ const TASKS =  [
             title: "Treinar",
             description: "Treino de bouldering",
             time: "afternoon",
-            status: "undone",
+            status: "in_progress",
         },
         {
             id: 4,
