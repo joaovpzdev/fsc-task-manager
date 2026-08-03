@@ -17,12 +17,18 @@ const Tasks = () => {
   const afternoonTasks = tasks.filter((task) => task.time === "afternoon");
   const eveningTasks = tasks.filter((task) => task.time === "evening");
 
+  //Função para deletar uma tarefa
+  const handleTaskDeleteClick = (taskId) => {
+    const newTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(newTasks);
+  }
+
   {
     /* atualização de progresso das checkboxes */
   }
   
   //Função para alterar o State
-  
+
   const handleTaskCheckboxChange = (taskId) => {
     const newTasks = tasks.map((task) => {
       if (task.id !== taskId) {
@@ -79,6 +85,7 @@ const Tasks = () => {
               key={task.id}
               task={task}
               handleTaskCheckboxChange={handleTaskCheckboxChange}
+              handleTaskDeleteClick={handleTaskDeleteClick}
             />
           ))}
         </div>
@@ -93,6 +100,7 @@ const Tasks = () => {
               key={task.id}
               task={task}
               handleTaskCheckboxChange={handleTaskCheckboxChange}
+              handleTaskDeleteClick={handleTaskDeleteClick}
             />
           ))}
         </div>
@@ -107,6 +115,7 @@ const Tasks = () => {
               key={task.id}
               task={task}
               handleTaskCheckboxChange={handleTaskCheckboxChange}
+              handleTaskDeleteClick={handleTaskDeleteClick}
             />
           ))}
         </div>
