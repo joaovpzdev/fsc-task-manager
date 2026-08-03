@@ -9,6 +9,7 @@ import TasksSeparatorTitle from "./TasksSeparatorTitle";
 import { useState } from "react";
 import TASKS from "./constants/tasks.js";
 import TaskItem from "./TaskItem.jsx";
+import { toast } from "sonner";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState(TASKS);
@@ -21,12 +22,13 @@ const Tasks = () => {
   const handleTaskDeleteClick = (taskId) => {
     const newTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(newTasks);
-  }
+    toast.success("Tarefa deletada com sucesso!");
+  };
 
   {
     /* atualização de progresso das checkboxes */
   }
-  
+
   //Função para alterar o State
 
   const handleTaskCheckboxChange = (taskId) => {
@@ -37,12 +39,15 @@ const Tasks = () => {
       // Atualizando as tarefas por meio do click
 
       if (task.status === "undone") {
+        toast("Tarefa em andamento!");
         return { ...task, status: "in_progress" };
       }
       if (task.status === "in_progress") {
+        toast.success("Tarefa concluída!");
         return { ...task, status: "done" };
       }
       if (task.status === "done") {
+        toast("Tarefa reiniciada!");
         return { ...task, status: "undone" };
       }
 
