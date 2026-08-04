@@ -6,12 +6,23 @@ import "./AddDialog.css";
 import { useRef } from "react";
 import { useState } from "react";
 import { v4 as uuid, v4 } from "uuid";
+import { useEffect } from "react";
 
 const AddDialog = ({ isOpen, handleClose, handleAddTask }) => {
   const [title, setTitle] = useState();
-  const [time, setTime] = useState();
+  const [time, setTime] = useState("morning");
   const [description, setDescription] = useState();
+
   const nodeRef = useRef();
+
+  useEffect(() => {
+    if (!isOpen) {
+      setTitle("");
+      setTime("");
+      setDescription("");
+    }
+  }, [isOpen]);
+
   //o CSSTransition é usado para animar a entrada e saída do componente, aplicando classes CSS específicas durante a transição.
   // o createPortal é usado para renderizar o componente em um nó DOM diferente do nó pai, permitindo que ele seja exibido acima de outros elementos da interface do usuário.
   return (
