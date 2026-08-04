@@ -10,13 +10,20 @@ import { useState } from "react";
 import TASKS from "./constants/tasks.js";
 import TaskItem from "./TaskItem.jsx";
 import { toast } from "sonner";
+import AddDialog from "./AddDialog.jsx";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState(TASKS);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 
   const morningTasks = tasks.filter((task) => task.time === "morning");
   const afternoonTasks = tasks.filter((task) => task.time === "afternoon");
   const eveningTasks = tasks.filter((task) => task.time === "evening");
+
+  // Função para fechar o Dialog de Adicionar Tarefa.
+  const handleDialogClose = () => {
+    setIsAddDialogOpen(false);
+  };
 
   //Função para deletar uma tarefa
   const handleTaskDeleteClick = (taskId) => {
@@ -66,14 +73,20 @@ const Tasks = () => {
           <h2 className="text-xl font-semibold"> Minhas Tarefas</h2>
         </div>
         <div className="flex items-center gap-3">
+
           <Button variant="secondary">
             <TrashIcon />
             Limpar Tarefas
           </Button>
-          <Button variant="primary">
+
+          <Button variant="primary" onClick={() => setIsAddDialogOpen(true)}>
             <AddIcon />
             Adicionar Tarefa
           </Button>
+
+          {/* Adicionando o Dialog de Adicionar Tarefa */}
+
+          <AddDialog isOpen={isAddDialogOpen} handleClose={handleDialogClose} />
         </div>
       </div>
 
