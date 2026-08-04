@@ -4,8 +4,13 @@ import Button from "./Button.jsx";
 import { CSSTransition } from "react-transition-group";
 import "./AddDialog.css";
 import { useRef } from "react";
+import { useState } from "react";
+import { v4 as uuid, v4 } from "uuid";
 
-const AddDialog = ({ isOpen, handleClose }) => {
+const AddDialog = ({ isOpen, handleClose, handleAddTask }) => {
+  const [title, setTitle] = useState();
+  const [time, setTime] = useState();
+  const [description, setDescription] = useState();
   const nodeRef = useRef();
   //o CSSTransition é usado para animar a entrada e saída do componente, aplicando classes CSS específicas durante a transição.
   // o createPortal é usado para renderizar o componente em um nó DOM diferente do nó pai, permitindo que ele seja exibido acima de outros elementos da interface do usuário.
@@ -38,6 +43,8 @@ const AddDialog = ({ isOpen, handleClose }) => {
                   id="title"
                   label="Título"
                   placeholder="Insira o título da tarefa"
+                  value={title}
+                  onChange={(event) => setTitle(event.target.value)}
                 />
 
                 <div className="flex flex-col gap-1 text-left">
@@ -50,6 +57,8 @@ const AddDialog = ({ isOpen, handleClose }) => {
                   <select
                     id="time"
                     className="w-full rounded-lg border border-[#ECECEC] bg-white px-4 py-3 text-sm text-[#35383E] outline-none transition duration-200 focus:border-[#00ADB5] focus:ring-2 focus:ring-[#00ADB5]/20"
+                    value={time}
+                    onChange={(event) => setTime(event.target.value)}
                   >
                     <option value="morning">Manhã</option>
                     <option value="afternoon">Tarde</option>
@@ -61,6 +70,8 @@ const AddDialog = ({ isOpen, handleClose }) => {
                   id="description"
                   label="Descrição"
                   placeholder="Descreva a tarefa"
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
                 />
 
                 <div className="flex gap-3">
@@ -73,7 +84,20 @@ const AddDialog = ({ isOpen, handleClose }) => {
                     Cancelar
                   </Button>
 
-                  <Button size="large" className="w-full">
+                  <Button
+                    size="large"
+                    className="w-full"
+                    onClick={() => {
+                      handleAddTask({
+                        id: v4(),
+                        title,
+                        time,
+                        description,
+                        status: "undone",
+                      });
+                      handleClose();
+                    }}
+                  >
                     Adicionar
                   </Button>
                 </div>

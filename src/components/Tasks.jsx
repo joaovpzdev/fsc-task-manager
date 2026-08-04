@@ -63,6 +63,12 @@ const Tasks = () => {
     setTasks(newTasks);
   };
 
+// Função para adicionar uma nova tarefa.
+  const handleAddTask = (task) => {
+    setTasks([...tasks, task]);
+    toast.success("Tarefa adicionada com sucesso!");
+  }
+
   return (
     <div className="w-full px-8 py-16">
       <div className="flex w-full justify-between">
@@ -86,8 +92,11 @@ const Tasks = () => {
 
           {/* Adicionando o Dialog de Adicionar Tarefa */}
 
-          <AddDialog isOpen={isAddDialogOpen} handleClose={handleDialogClose} />
+          {/*local de recebimento das funções de adicionar tarefa, para que o componente TaskItem possa chamar a função handleAddTask do componente pai Tasks.jsx */}
+          <AddDialog isOpen={isAddDialogOpen} handleClose={handleDialogClose}
+          handleAddTask={handleAddTask} />
         </div>
+
       </div>
 
       {/*Lista de tarefas */}
