@@ -12,16 +12,30 @@ const AddDialog = ({ isOpen, handleClose, handleAddTask }) => {
   const [title, setTitle] = useState();
   const [time, setTime] = useState("morning");
   const [description, setDescription] = useState();
+  const [error, setError] = useState([]);
 
   const nodeRef = useRef();
+
+  const handleSaveClick = () => {
+    handleAddTask({
+      id: v4(),
+      title,
+      time,
+      description,
+      status: "undone",
+    });
+    handleClose();
+  };
 
   useEffect(() => {
     if (!isOpen) {
       setTitle("");
-      setTime("");
+      setTime("morning");
       setDescription("");
     }
   }, [isOpen]);
+
+  
 
   //o CSSTransition é usado para animar a entrada e saída do componente, aplicando classes CSS específicas durante a transição.
   // o createPortal é usado para renderizar o componente em um nó DOM diferente do nó pai, permitindo que ele seja exibido acima de outros elementos da interface do usuário.
@@ -98,16 +112,7 @@ const AddDialog = ({ isOpen, handleClose, handleAddTask }) => {
                   <Button
                     size="large"
                     className="w-full"
-                    onClick={() => {
-                      handleAddTask({
-                        id: v4(),
-                        title,
-                        time,
-                        description,
-                        status: "undone",
-                      });
-                      handleClose();
-                    }}
+                    onClick={handleSaveClick}
                   >
                     Adicionar
                   </Button>
