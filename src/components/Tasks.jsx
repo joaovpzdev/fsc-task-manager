@@ -6,15 +6,34 @@ import CloudIcon from "./assets/fonts/icons/cloud-sun.svg?react";
 import MoonIcon from "./assets/fonts/icons/moon.svg?react";
 import TasksSeparator from "./TasksSeparator";
 import TasksSeparatorTitle from "./TasksSeparatorTitle";
-import { useState } from "react";
-import TASKS from "./constants/tasks.js";
+import { useEffect, useState } from "react";
 import TaskItem from "./TaskItem.jsx";
 import { toast } from "sonner";
 import AddDialog from "./AddDialog.jsx";
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState(TASKS);
+  const [tasks, setTasks] = useState([]);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/tasks");
+
+        if (!response.ok) {
+          throw new Error("Erro ao carregar tarefas");
+        }
+
+        const data = await response.json();
+        setTasks(data);
+      } catch (error) {
+        console.error(error);
+        toast.error("Não foi possível carregar as tarefas.");
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   const morningTasks = tasks.filter((task) => task.time === "morning");
   const afternoonTasks = tasks.filter((task) => task.time === "afternoon");
@@ -63,11 +82,29 @@ const Tasks = () => {
     setTasks(newTasks);
   };
 
-// Função para adicionar uma nova tarefa.
-  const handleAddTask = (task) => {
-    setTasks([...tasks, task]);
-    toast.success("Tarefa adicionada com sucesso!");
-  }
+  // Função para adicionar uma nova tarefa.
+  const handleAddTask = async (task) => {
+    try {
+      const response = await fetch("http://localhost:3000/tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao salvar tarefa");
+      }
+
+      const savedTask = await response.json();
+      setTasks((previousTasks) => [...previousTasks, savedTask]);
+      toast.success("Tarefa adicionada com sucesso!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Não foi possível adicionar a tarefa.");
+    }
+  };
 
   return (
     <div className="w-full px-8 py-16">
@@ -79,7 +116,6 @@ const Tasks = () => {
           <h2 className="text-xl font-semibold"> Minhas Tarefas</h2>
         </div>
         <div className="flex items-center gap-3">
-
           <Button variant="secondary">
             <TrashIcon />
             Limpar Tarefas
@@ -93,10 +129,12 @@ const Tasks = () => {
           {/* Adicionando o Dialog de Adicionar Tarefa */}
 
           {/*local de recebimento das funções de adicionar tarefa, para que o componente TaskItem possa chamar a função handleAddTask do componente pai Tasks.jsx */}
-          <AddDialog isOpen={isAddDialogOpen} handleClose={handleDialogClose}
-          handleAddTask={handleAddTask} />
+          <AddDialog
+            isOpen={isAddDialogOpen}
+            handleClose={handleDialogClose}
+            handleAddTask={handleAddTask}
+          />
         </div>
-
       </div>
 
       {/*Lista de tarefas */}
