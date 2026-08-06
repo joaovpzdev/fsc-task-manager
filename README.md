@@ -3,9 +3,11 @@
 
 Linguagem usada: React (JSX) JavaScript.
 Estilização usada: Tailwind.
+API(data bank): Json-server
 
 - Sobre a linguagem: A biblioteca React foi escolhida pela modularidade e liberdade no uso de seus atributos.
-- sobre a Estilização: O Tailwind foi escolhido pela praticidade e rapidez na construção do estilo dos componentes.
+- Sobre a Estilização: O Tailwind foi escolhido pela praticidade e rapidez na construção do estilo dos componentes.
+- Sobre o banco de dados: O plugin Json-server foi escolhido pela praticidade e simplicidade para que faça a função de uma API.
 
 ## Um gerenciador de tarefas com um layout intuitivo e design clean
 
