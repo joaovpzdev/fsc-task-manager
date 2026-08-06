@@ -4,7 +4,7 @@
 Linguagem usada: React (JSX) JavaScript.
 Estilização usada: Tailwind.
 
-- Sobre a linguagem: O React foi escolhido pela modularidade e liberdade no uso de seus atributos.
+- Sobre a linguagem: A biblioteca React foi escolhida pela modularidade e liberdade no uso de seus atributos.
 - sobre a Estilização: O Tailwind foi escolhido pela praticidade e rapidez na construção do estilo dos componentes.
 
 ## Um gerenciador de tarefas com um layout intuitivo e design clean
