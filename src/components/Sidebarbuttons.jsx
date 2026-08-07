@@ -1,4 +1,4 @@
-const SidebarButton = ({ children, variant, icon}) => {
+const SidebarButton = ({ children, variant, icon }) => {
   const getVariantClasses = () => {
     if (variant === "unselected") {
       return "text-[#35383E]";
@@ -11,7 +11,10 @@ const SidebarButton = ({ children, variant, icon}) => {
     return "";
   };
   return (
-    <a href="#" className={`flex items-center gap-2 rounded-lg px-6 py-3 ${getVariantClasses()}`}>
+    <a
+      href="#"
+      className={`flex items-center gap-2 rounded-lg px-6 py-3 ${getVariantClasses()}`}
+    >
       {icon}
       {children}
     </a>

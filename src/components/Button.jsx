@@ -1,5 +1,11 @@
-const Button = ({ children, variant = "primary", onClick, size = "small", className, ...rest }) => {
-  
+const Button = ({
+  children,
+  variant = "primary",
+  onClick,
+  size = "small",
+  className,
+  ...rest
+}) => {
   const getVariantClasses = () => {
     if (variant === "primary") {
       return "bg-[#00adb5] text-white font-semibold";

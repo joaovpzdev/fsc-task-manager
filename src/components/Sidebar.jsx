@@ -12,7 +12,7 @@ const Sidebar = () => {
           <span className="text-[#00ADB5]">Organizador de Tarefas</span>{" "}
         </p>
       </div>
-      <div className="flex flex-col gap-2 p-2"> 
+      <div className="flex flex-col gap-2 p-2">
         <SidebarButton variant="unselected">
           <HomeIcon />
           Início
