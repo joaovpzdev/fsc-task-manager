@@ -16,6 +16,9 @@ const Button = ({
     if (variant === "tertiary") {
       return "bg-[#EEEEEE] text-[#35383E]";
     }
+    if (variant === "quaternary") {
+      return "bg-red-600 text-white"
+    }
   };
 
   const getSizeClasses = () => {

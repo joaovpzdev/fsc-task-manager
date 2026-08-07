@@ -71,7 +71,7 @@ const TaskItem = ({
           {deleteIsLoading ? (
             <LoaderIcon className="animate-spin" />
           ) : (
-            <TrashIcon className="text-[#9A9C9F]" />
+            <TrashIcon className="text-[#9AC9F9]" />
           )}
         </Button>
         <Link
