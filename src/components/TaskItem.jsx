@@ -5,6 +5,7 @@ import TrashIcon from "./assets/fonts/icons/trash.svg?react";
 import Button from "./Button.jsx";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 const TaskItem = ({
   task,
@@ -13,6 +14,7 @@ const TaskItem = ({
   onDeleteSuccess,
 }) => {
   const [deleteIsLoading, setDeleteIsLoading] = useState(false);
+  
 
   const onDeleteClick = async (taskId) => {
     setDeleteIsLoading(true);
@@ -72,9 +74,12 @@ const TaskItem = ({
             <TrashIcon className="text-[#9A9C9F]" />
           )}
         </Button>
-        <a href="#" className="transition hover:opacity-75">
+        <Link
+          to={`/task/${task.id}`}
+          className="p-2 rounded-lg transition hover:bg-[#00ADB5]/10"
+        >
           <DetailsIcon />
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { v4 as uuid, v4 } from "uuid";
 import { useEffect } from "react";
 
-const AddDialog = ({ isOpen, handleClose, handleAddTask }) => {
+const AddDialog = ({ isOpen, handleClose, handleAddTask}) => {
   const [title, setTitle] = useState();
   const [time, setTime] = useState("morning");
   const [description, setDescription] = useState();
