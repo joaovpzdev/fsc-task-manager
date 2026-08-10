@@ -1,4 +1,4 @@
-import SidebarButton from "./SidebarButtons";
+import SidebarButton from "./Sidebarbuttons";
 import HomeIcon from "./assets/fonts/icons/home.svg?react";
 import TaskIcon from "./assets/fonts/icons/tasks.svg?react";
 
@@ -21,12 +21,12 @@ const Sidebar = () => {
           Início
         </SidebarButton>
         <SidebarButton to="/tasks">
-          <TasksIcon />
+          <TaskIcon />
           Minhas Tarefas
         </SidebarButton>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

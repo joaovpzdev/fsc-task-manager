@@ -1,19 +1,18 @@
-import CloudSunIcon from "./assets/fonts/icons/cloud-sun.svg?react"
-import MoonIcon from "./assets/fonts/icons/moon.svg?react"
-import SunIcon from "./assets/fonts/icons/sun.svg?react"
+import CloudSunIcon from "./assets/fonts/icons/cloud-sun.svg?react";
+import MoonIcon from "./assets/fonts/icons/moon.svg?react";
+import SunIcon from "./assets/fonts/icons/sun.svg?react";
 import { useGetTasks } from "../hooks/data/use-get-tasks";
 import Header from "./Header";
 import TaskItem from "./TaskItem";
 import TasksSeparator from "./TasksSeparator";
 
 const Tasks = () => {
-  const { data: tasks } = useGetTasks();
-  
-//se o tasks for undefined o "?" faz ele pular a função.
+  const { data: tasks = [] } = useGetTasks();
 
-  const morningTasks = tasks?.filter((task) => task.time === "morning");
-  const afternoonTasks = tasks?.filter((task) => task.time === "afternoon");
-  const eveningTasks = tasks?.filter((task) => task.time === "evening");
+  // assegura um array vazio quando os dados ainda não chegaram
+  const morningTasks = tasks.filter((task) => task.time === "morning");
+  const afternoonTasks = tasks.filter((task) => task.time === "afternoon");
+  const eveningTasks = tasks.filter((task) => task.time === "evening");
 
   return (
     <div className="w-full space-y-6 px-8 py-16">

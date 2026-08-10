@@ -1,11 +1,3 @@
 {
-  "tasks": [
-    {
-      "id": "1296d72b-408e-40e2-9c1f-722682617143",
-      "title": "teste",
-      "time": "morning",
-      "description": "teste",
-      "status": "undone"
-    }
-  ]
+  "tasks": []
 }
