@@ -1,9 +1,17 @@
-const TasksSeparator = ({ children }) => {
-  return (
-    <div className="flex gap-2 border-b pb-1 border-solid border-[#F4F4F5]">
-      {children}
-    </div>
-  );
-};
+import PropTypes from "prop-types"
 
-export default TasksSeparator;
+const TasksSeparator = ({ title, icon }) => {
+  return (
+    <div className="flex gap-2 border-b border-solid border-brand-border pb-1">
+      {icon}
+      <p className="text-sm text-brand-text-gray">{title}</p>
+    </div>
+  )
+}
+
+TasksSeparator.propTypes = {
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
+}
+
+export default TasksSeparator

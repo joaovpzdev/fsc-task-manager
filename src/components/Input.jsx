@@ -1,24 +1,29 @@
-const Input = ({ label, error, ...rest }) => {
+import PropTypes from "prop-types"
+import { forwardRef } from "react"
+
+import InputErrorMessage from "./InputErrorMessage"
+import InputLabel from "./InputLabel"
+
+const Input = forwardRef(({ label, errorMessage, ...rest }, ref) => {
   return (
-    <div className="flex flex-col space-y-1 text-left w-full">
-      <label
-        className="text-left text-sm font-semibold text-[#35383E]"
-        htmlFor={rest.id}
-      >
-        {label}
-      </label>
+    <div className="flex flex-col space-y-1 text-left">
+      <InputLabel htmlFor={rest.id}>{label}</InputLabel>
       <input
-        className={`w-full text-left px-4 py-3 border-solid rounded-lg placeholder:text-sm placeholder:text-[#9A9C9F] outline-[#00ADB5] ${error ? "border-red-500 bg-red-50" : "border-[#ECECEC] bg-white"}`}
-        aria-invalid={error ? "true" : "false"}
-        aria-describedby={error ? `${rest.id}-error` : undefined}
+        className="rounded-lg border border-solid border-brand-border px-4 py-3 outline-brand-primary placeholder:text-sm placeholder:text-brand-text-gray"
+        ref={ref}
         {...rest}
       />
-      {error && (
-        <p id={`${rest.id}-error`} className="text-sm text-red-600">
-          {error}
-        </p>
-      )}
+      {errorMessage && <InputErrorMessage>{errorMessage}</InputErrorMessage>}
     </div>
-  );
-};
-export default Input;
+  )
+})
+
+Input.displayName = "Input"
+Input.propTypes = {
+  id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  errorMessage: PropTypes.string,
+  placeholder: PropTypes.string,
+}
+
+export default Input

@@ -5,11 +5,6 @@ import { Toaster } from "sonner"
 function App() {
     return (
         <div className="flex gap-9">
-            <Toaster toastOptions={{
-                style: {
-                    color: "#2d323c"
-                }
-            }}/>
             <Sidebar />
             <Tasks />
         </div>

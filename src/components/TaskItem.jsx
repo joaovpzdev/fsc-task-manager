@@ -1,50 +1,77 @@
-import CheckIcon from "./assets/fonts/icons/check.svg?react";
-import LoaderIcon from "./assets/fonts/icons/loader.svg?react";
-import DetailsIcon from "./assets/fonts/icons/details.svg?react";
-import TrashIcon from "./assets/fonts/icons/trash.svg?react";
-import Button from "./Button.jsx";
-import { useState } from "react";
-import { toast } from "sonner";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
-const TaskItem = ({
-  task,
-  handleTaskCheckboxChange,
-  handleTaskDeleteClick,
-  onDeleteSuccess,
-}) => {
-  const [deleteIsLoading, setDeleteIsLoading] = useState(false);
-  
+import CheckIcon from "./assets/fonts/icons/check.svg?react";
+import DetailsIcon from "./assets/fonts/icons/details.svg?react";
+import LoaderIcon from "./assets/fonts/icons/loader.svg?react";
+import TrashIcon from "./assets/fonts/icons/trash.svg?react";
+import Button from "./Button";
+import { useDeleteTask } from "../hooks/data/use-delete-task";
+import { useUpdateTask } from "../hooks/data/use-update-task";
 
-  const onDeleteClick = async (taskId) => {
-    setDeleteIsLoading(true);
-    const response = await fetch(`http://localhost:3000/tasks/${taskId}`, {
-      method: "DELETE",
-    });
+const TaskItem = ({ task }) => {
+  const { mutate: deleteTask, isPending: deleteTaskIsLoading } = useDeleteTask(
+    task.id,
+  );
+  const { mutate } = useUpdateTask(task.id);
 
-    if (!response.ok) {
-      setDeleteIsLoading(false);
-      return toast.error("Erro ao deletar tarefa");
-    }
-    onDeleteSuccess(task.id);
-    setDeleteIsLoading(false);
-  };
   const getStatusClasses = () => {
     if (task.status === "done") {
-      return "bg-[#00ADB5] text-[#00ADB5]";
+      return "bg-brand-primary text-brand-primary";
     }
+
     if (task.status === "in_progress") {
-      return "bg-[#FFAA04] text-[#FFAA04]";
+      return "bg-brand-process text-brand-process";
     }
-    if (task.status === "undone") {
-      return "bg-[#35383E] bg-opacity-10 text-[#35383E]";
+
+    if (task.status === "not_started") {
+      return "bg-brand-dark-blue bg-opacity-5 text-brand-dark-blue";
     }
   };
+
+  const handleDeleteClick = () => {
+    deleteTask(undefined, {
+      onSuccess: () => {
+        toast.success("Tarefa excluída com sucesso!");
+      },
+      onError: () => {
+        toast.error("Erro ao excluir tarefa. Por favor, tente novamente.");
+      },
+    });
+  };
+
+  const getNewStatus = () => {
+    if (task.status === "not_started") {
+      return "in_progress";
+    }
+    if (task.status === "in_progress") {
+      return "done";
+    }
+    return "not_started";
+  };
+
+  const handleCheckboxClick = () => {
+    mutate(
+      {
+        status: getNewStatus(),
+      },
+      {
+        onSuccess: () =>
+          toast.success("Status da tarefa atualizado com sucesso!"),
+        onError: () =>
+          toast.error(
+            "Erro ao atualizar status da tarefa. Por favor, tente novamente.",
+          ),
+      },
+    );
+  };
+
   return (
     <div
-      className={`flex items-center transition justify-between bg-opacity-10 gap-2 px-4 py-3 rounded-lg text-sm ${getStatusClasses()}`}
+      className={`flex items-center justify-between gap-2 rounded-lg bg-opacity-10 px-4 py-3 text-sm transition ${getStatusClasses()}`}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <label
           className={`relative flex h-7 w-7 cursor-pointer items-center justify-center rounded-lg ${getStatusClasses()}`}
         >
@@ -52,36 +79,48 @@ const TaskItem = ({
             type="checkbox"
             checked={task.status === "done"}
             className="absolute h-full w-full cursor-pointer opacity-0"
-            onChange={() => handleTaskCheckboxChange(task.id)}
-          ></input>
+            onChange={handleCheckboxClick}
+          />
           {task.status === "done" && <CheckIcon />}
           {task.status === "in_progress" && (
-            <LoaderIcon className="animate-spin text-white" />
+            <LoaderIcon className="animate-spin text-brand-white" />
           )}
         </label>
+
         {task.title}
       </div>
-      <div className="flex items-center gap-3">
+
+      <div className="flex items-center gap-2">
         <Button
-          variant="secondary"
-          className="p-2 "
-          onClick={() => onDeleteClick(task.id)}
-          disabled={deleteIsLoading}
+          color="ghost"
+          onClick={handleDeleteClick}
+          disabled={deleteTaskIsLoading}
         >
-          {deleteIsLoading ? (
-            <LoaderIcon className="animate-spin" />
+          {deleteTaskIsLoading ? (
+            <LoaderIcon className="animate-spin text-brand-text-gray" />
           ) : (
-            <TrashIcon className="text-[#9AC9F9]" />
+            <TrashIcon className="text-brand-text-gray" />
           )}
         </Button>
-        <Link
-          to={`/task/${task.id}`}
-          className="p-2 rounded-lg transition hover:bg-[#00ADB5]/10"
-        >
+
+        <Link to={`/task/${task.id}`}>
           <DetailsIcon />
         </Link>
       </div>
     </div>
   );
 };
+
+TaskItem.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    time: PropTypes.oneOf(["morning", "afternoon", "evening"]).isRequired,
+    status: PropTypes.oneOf(["not_started", "in_progress", "done"]).isRequired,
+  }).isRequired,
+  handleCheckboxClick: PropTypes.func.isRequired,
+  handleDeleteClick: PropTypes.func.isRequired,
+};
+
 export default TaskItem;
