@@ -1,7 +1,8 @@
 import PropTypes from "prop-types"
 import { useState } from "react"
 
-import { AddIcon, TrashIcon } from "../assets/icons"
+import TrashIcon from  "./assets/fonts/icons/trash.svg?react"
+import AddIcon from "./assets/fonts/icons/add.svg?react"
 import AddTaskDialog from "./AddTaskDialog"
 import Button from "./Button"
 

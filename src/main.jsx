@@ -1,9 +1,10 @@
 import React from "react";
 import  ReactDOM  from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import HomePage from "./pages/Home.jsx";
+import Tasks from "./pages/Tasks.jsx";
 import TaskDetailsPage from "./pages/TaskDetails.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "sonner";
 import {  QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
@@ -12,7 +13,11 @@ const queryClient = new QueryClient()
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage/>
+  }
+  {
+    path: "/tasks",
+    element: <TasksPage />,
   },
   {
     path: "/task/:taskId",
