@@ -1,3 +1,25 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": "eef8cdc5-f1b3-48a2-87f9-d8bd00d9f3ff",
+      "title": "lavar a cozinha",
+      "time": "evening",
+      "description": "lavar",
+      "status": "in_progress"
+    },
+    {
+      "id": "d390d28d-cafc-48da-9713-f8ba71626688",
+      "title": "treinar",
+      "time": "afternoon",
+      "description": "corrida",
+      "status": "in_progress"
+    },
+    {
+      "id": "2253b535-77e0-460e-9972-29dea4c7b898",
+      "title": "kkk",
+      "time": "morning",
+      "description": "kkkk",
+      "status": "not_started"
+    }
+  ]
 }
