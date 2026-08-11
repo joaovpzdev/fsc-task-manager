@@ -9,6 +9,8 @@ import TrashIcon from "./assets/fonts/icons/trash.svg?react";
 import Button from "./Button";
 import { useDeleteTask } from "../hooks/data/use-delete-task";
 import { useUpdateTask } from "../hooks/data/use-update-task";
+import { tv } from "tailwind-variants"
+
 
 const TaskItem = ({ task }) => {
   const { mutate: deleteTask, isPending: deleteTaskIsLoading } = useDeleteTask(

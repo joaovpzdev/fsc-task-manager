@@ -1,39 +1,41 @@
-import DashBoardCard from "../components/DashboardCard"
+import DashBoardCards from "../components/DashBoardCards"
 import Header from "../components/Header"
 import Sidebar from "../components/Sidebar"
-import Tasks2Icon from "../components/assets/fonts/icons/tasks-2.svg?react"
-import LoaderIcon from "../components/assets/fonts/icons/loader.svg?react"
-import GlassWaterIcon from "../components/assets/fonts/icons/glass-water.svg?react"
-import TasksIcon from "../components/assets/fonts/icons/tasks.svg?react"
-import { useGetTasks } from "../hooks/data/use-get-tasks";
+import TaskItem from "../components/TaskItem"
+import { useGetTasks } from "../hooks/data/use-get-tasks"
 
 const HomePage = () => {
-  const {data:tasks
-  } = useGetTasks();
-
-  const inProgressTasks = tasks?.filter((task) => task.status === "in_progress").length
-  const completedTasks = tasks?.filter((task) => task.status === "completed").length
-
-    return (
+  const { data: tasks } = useGetTasks()
+  return (
     <div className="flex">
-
       <Sidebar />
-
       <div className="w-full space-y-6 px-8 py-16">
-      <Header subtitle="Dashboard" title="Dashboard"/>
-       <div className="grid grid-cols-4 gap-9">
-        <DashBoardCard icon={<Tasks2Icon />} mainText={tasks?.length} secondaryText="Tarefas disponíveis" />
+        <Header subtitle="Dashboard" title="Dashboard" />
+        <DashBoardCards />
+        <div className="grid grid-cols-[1.5fr,1fr] gap-6">
+          <div className="space-y-6 rounded-[10px] bg-white p-6">
+            <div>
+              <h3 className="text-xl font-semibold">Tarefas</h3>
+              <span className="text-sm text-brand-dark-gray">
+                Resumo das tarefas disponíveis
+              </span>
+            </div>
 
-        <DashBoardCard icon={<TasksIcon />} mainText={completedTasks} secondaryText="Tarefas concluídas" />
-
-        <DashBoardCard icon={<LoaderIcon /> } mainText={inProgressTasks} secondaryText="Tarefas em andamento" />
-
-        <DashBoardCard icon={<GlassWaterIcon /> } mainText= "4" secondaryText="Hidratação diária" />
-       </div>
+            <div className="space-y-3">
+              {tasks?.map((task) => (
+                <TaskItem key={task.id} task={task} />
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center justify-center space-y-6 rounded-[10px] bg-white p-6">
+            <p className="text-brand-dark-gray">
+              If you want to win the lottery, you have to make the money to buy a ticket! - Nightcrawler, 2014.
+            </p>
+          </div>
+        </div>
       </div>
-  
     </div>
   )
-    
 }
+
 export default HomePage
