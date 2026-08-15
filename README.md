@@ -2,17 +2,18 @@
 
 Linguagem usada: React (JSX) JavaScript.
 Estilização usada: Tailwind.
-API(data bank): Json-server
+API(data bank): Json-server + Axios
 
 - Sobre a linguagem: A biblioteca React foi escolhida pela modularidade e liberdade no uso de seus atributos.
 - Sobre a Estilização: O Tailwind foi escolhido pela praticidade e rapidez na construção do estilo dos componentes.
-- Sobre o banco de dados: O plugin Json-server foi escolhido pela praticidade e simplicidade para que faça a função de uma API.
+- Sobre o banco de dados: O plugin Json-server foi escolhido pela praticidade e simplicidade para que faça a função de uma API juntamente com a Lib Axios melhorando ainda mais a comunicação com a API..
 
 ## Um gerenciador de tarefas com um layout intuitivo e design clean
 
 Trabalhei com um viés forte de componentização para manter o projeto modular e de fácil manutenção.
-O primeiro ponto que exigiu mais atenção e tomada de decisão usando uma visão mais minimalista em detrimento à performance foi com relação ao useState X useRef.
-O useState foi usado para estruturar a renderização do componente "Dialog", devido ao tamanho da aplicação (relativamente pequena), não foi necessário fazer a troca pelo useRef mesmo este sendo mais performático, evitando assim o **"over engineering"** de algo que pode e deve ser simples.
+Usei o React Routers para construir uma navegação entre Single Page Aplications mais simplificada e performática.
+React Hooks e React Query foram usados para trabalharmos com validações de formulários, resets e comunicação com a API.
+
 
 # React + Vite
 
